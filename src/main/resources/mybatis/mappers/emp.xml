@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emp">
+
+	<select id="selectList" resultType="empDeptDTO">
+		SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno,
+				d.dname, d.loc
+		FROM emp e, dept d
+		WHERE e.deptno = d.deptno
+	</select>
+
+	<select id="selectCheckedList" resultType="empDeptDTO" parameterType="String">
+		SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno,
+				d.dname, d.loc
+		FROM emp e, dept d
+		WHERE e.deptno = d.deptno
+		and e.empno in 
+		<foreach item="no" collection="list" open="(" separator="," close=")">
+			#{no}
+		</foreach>
+	</select>
+
+	<select id="select" resultType="empDeptDTO" parameterType="String">
+		SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno,
+				d.dname, d.loc
+		FROM emp e, dept d
+		WHERE e.deptno = d.deptno
+		<if test="_parameter != null">
+			and e.empno in 
+			<foreach item="no" collection="list" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+		</if>
+		<if test="empno != null">
+			and e.empno = #{empno}
+		</if>
+		<if test="_parameter != null">
+			and e.empno in 
+			<foreach item="no" collection="list" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+		</if>
+		<if test="deptno != null">
+			and e.deptno = #{deptno}
+		</if>
+		<if test="sal != null">
+			and e.sal <![CDATA[ >= ]]> #{sal}
+		</if>
+		<if test="name != null">
+			and lower(e.name) like '%' || lower(#{name}) || '%'
+		</if>
+		<if test="_parameter != null">
+			and e.empno in 
+			<foreach item="no" collection="list" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+		</if>
+		<if test="empno != null">
+			and e.empno = #{empno}
+		</if>
+		<if test="_parameter != null">
+			and e.empno in 
+			<foreach item="no" collection="list" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+		</if>
+		<if test="empno != null">
+			and e.empno = #{empno}
+		</if>
+		<if test="_parameter != null">
+			and e.empno in 
+			<foreach item="no" collection="list" open="(" separator="," close=")">
+				#{no}
+			</foreach>
+		</if>
+		<if test="empno != null">
+			and e.empno = #{empno}
+		</if>
+	</select>
+</mapper>
